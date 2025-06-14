@@ -8,7 +8,12 @@ import(
 type cliCommand struct {
 	name string
 	description string
-	callback func() error
+	callback func(cfg *config) error
+}
+
+type config struct {
+	Next string
+	Prev string
 }
 
 func getCommands() map[string]cliCommand {
@@ -23,18 +28,23 @@ func getCommands() map[string]cliCommand {
 		description: "Displays a help message",
 		callback: commandHelp,
 	},
+	"map" : cliCommand{
+		name : "map",
+		description: "Displays the next 20 locations",
+		callback: commandMap,
+	},
 }
 }
 
 
-func commandExit() error {
+func commandExit(cfg *config) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 
 	return nil
 }
 
-func commandHelp() error {
+func commandHelp(cfg *config) error {
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Print("Usage:\n\n")
 
