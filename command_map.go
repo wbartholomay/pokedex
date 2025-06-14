@@ -19,7 +19,7 @@ type location struct {
 }
 
 func commandMap(cfg *config) error {
-	url := cfg.Next
+	url := cfg.nextLocationsURL
 	if url == "" {
 		url = "https://pokeapi.co/api/v2/location-area"
 	}
@@ -27,7 +27,7 @@ func commandMap(cfg *config) error {
 }
 
 func commandMapb(cfg *config) error {
-	url := cfg.Prev
+	url := cfg.prevLocationsURL
 	if url == "" {
 		fmt.Println("you're on the first page")
 		return nil
@@ -53,8 +53,8 @@ func commonMap(cfg *config, url string) error {
 		return fmt.Errorf("JSON decoding failed: %w", err)
 	}
 
-	cfg.Next = jsonData.Next
-	cfg.Prev = jsonData.Previous
+	cfg.nextLocationsURL = jsonData.Next
+	cfg.prevLocationsURL = jsonData.Previous
 
 	for _, loc := range jsonData.Results {
 		fmt.Println(loc.Name)

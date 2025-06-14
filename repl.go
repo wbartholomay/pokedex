@@ -5,7 +5,14 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"github.com/wbartholomay/pokedexcli/internal/pokeapi"
 )
+
+type config struct {
+	pokeapiClient    pokeapi.Client
+	nextLocationsURL string
+	prevLocationsURL string
+}
 
 func cleanInput(text string) []string {
 	text = strings.ToLower(text)
@@ -13,13 +20,8 @@ func cleanInput(text string) []string {
 	return substrings
 }
 
-func startRepl() {
+func startRepl(cfg *config) {
 	scanner := bufio.NewScanner(os.Stdin)
-
-	cfg := config {
-		Next : "",
-		Prev : "",
-	}
 
 	for {
 		fmt.Print("Pokedex > ")
@@ -35,7 +37,7 @@ func startRepl() {
 			continue
 		}
 
-		err := cmd.callback(&cfg)
+		err := cmd.callback(cfg)
 		if err != nil {
 			fmt.Print(err.Error())
 		}

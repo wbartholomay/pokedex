@@ -11,11 +11,6 @@ type cliCommand struct {
 	callback func(cfg *config) error
 }
 
-type config struct {
-	Next string
-	Prev string
-}
-
 func getCommands() map[string]cliCommand {
 	return map[string]cliCommand {
 	"exit" : cliCommand{
