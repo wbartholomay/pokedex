@@ -1,7 +1,6 @@
 package pokeapi
 
 import (
-	"github.com/wbartholomay/pokedexcli/internal/pokecache"
 	"net/http"
 	"io"
 )
@@ -11,8 +10,8 @@ const (
 )
 
 
-func makeCachedRequest(client *Client, url string, c pokecache.Cache) ([]byte, error){
-	data, ok := c.Get(url)
+func makeCachedRequest(client *Client, url string) ([]byte, error){
+	data, ok := client.cache.Get(url)
 	if ok { return data, nil }
 
 	//only supporting get requests for now
