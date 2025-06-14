@@ -6,7 +6,6 @@ import (
 )
 
 func (c *Client) GetPokemonDetails(url string) (RespPokemonDetails, error) {
-	fmt.Println(url)
 	data, err := makeCachedRequest(c, url)
 	if err != nil {
 		return RespPokemonDetails{}, fmt.Errorf("cached request failed: %w", err)

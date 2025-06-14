@@ -6,7 +6,6 @@ import (
 )
 
 func (c *Client) ExploreLocation(url string) (RespDetailedLocations, error) {
-	fmt.Println(url)
 	data, err := makeCachedRequest(c, url)
 	if err != nil {
 		return RespDetailedLocations{}, fmt.Errorf("cached request failed: %w", err)
