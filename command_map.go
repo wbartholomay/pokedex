@@ -23,7 +23,20 @@ func commandMap(cfg *config) error {
 	if url == "" {
 		url = "https://pokeapi.co/api/v2/location-area"
 	}
+	return commonMap(cfg, url)
+}
 
+func commandMapb(cfg *config) error {
+	url := cfg.Prev
+	if url == "" {
+		fmt.Println("you're on the first page")
+		return nil
+	}
+
+	return commonMap(cfg, url)
+}
+
+func commonMap(cfg *config, url string) error {
 	res, err := http.Get(url)
 	if err != nil {
 		return fmt.Errorf("call to PokeAPI failed: %w", err)
@@ -46,7 +59,6 @@ func commandMap(cfg *config) error {
 	for _, loc := range jsonData.Results {
 		fmt.Println(loc.Name)
 	}
-	
-	return nil
 
+	return nil
 }
