@@ -24,9 +24,7 @@ func CommandCatch(cfg *config, params ...string) error {
 	
 	if rand.IntN(609) > exp / 2 {
 		fmt.Printf("%s was caught!\n", pokemonName)
-		pokedex[pokemonName] = Pokemon{
-			Name: pokemonRes.Name,
-		}
+		cfg.pokedex[pokemonName] = pokemonRes
 	} else {
 		fmt.Printf("%s escaped!\n", pokemonName)
 	}
