@@ -24,6 +24,15 @@ func startRepl() {
 		input := cleanInput(t)
 		if len(input) == 0 { continue }
 
-		fmt.Println("Your command was: " + input[0])
+		cmd, ok := getCommands()[input[0]]
+		if !ok{
+			fmt.Println("Unknown command")
+			continue
+		}
+
+		err := cmd.callback()
+		if err != nil {
+			fmt.Print(err.Error())
+		}
 	}
 }
