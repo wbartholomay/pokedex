@@ -1,8 +1,9 @@
 package pokeapi
 
 import (
-	"net/http"
+	"fmt"
 	"io"
+	"net/http"
 )
 
 const (
@@ -27,8 +28,13 @@ func makeGetRequest(client *Client, url string) ([]byte, error) {
 	resp, err := client.httpClient.Do(req)
 	if err != nil {
 		return []byte{}, err
-	}
+	} 
 	defer resp.Body.Close()
+	
+	if resp.StatusCode != http.StatusOK {
+		return []byte{}, fmt.Errorf("HTTP call failed, Status Code: %v Status: %v", resp.StatusCode, resp.Status)
+	}
+	
 
 	data, err := io.ReadAll(resp.Body)
 	if err != nil {

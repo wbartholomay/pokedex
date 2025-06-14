@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func commandMap(cfg *config) error {
+func commandMap(cfg *config, params ...string) error {
 	url := cfg.nextLocationsURL
 	if url == "" {
 		url = "https://pokeapi.co/api/v2/location-area"
@@ -12,7 +12,7 @@ func commandMap(cfg *config) error {
 	return commonMap(cfg, url)
 }
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, params ...string) error {
 	url := cfg.prevLocationsURL
 	if url == "" {
 		fmt.Println("you're on the first page")
