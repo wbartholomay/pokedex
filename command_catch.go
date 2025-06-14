@@ -20,10 +20,12 @@ func CommandCatch(cfg *config, params ...string) error {
 	}
 
 	exp := pokemonRes.BaseExperience
-	fmt.Printf("Throwing a Pokeball at %s\n", pokemonName)
 	
 	if rand.IntN(609) > exp / 2 {
 		fmt.Printf("%s was caught!\n", pokemonName)
+		pokedex[pokemonName] = Pokemon{
+			Name: pokemonRes.Name,
+		}
 	} else {
 		fmt.Printf("%s escaped!\n", pokemonName)
 	}
